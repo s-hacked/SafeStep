@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SafeStep</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+  <div class="brand">
+    <div class="logo">🛡</div>
+    <div>
+      <strong>SafeStep</strong><br>
+      <small>Women's Safety App</small>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<section id="dashboard">
+
+  <div class="hero">
+    <h1><span>Empowering Women</span><br>With Real-Time Safety</h1>
+    <p class="hero-sub">
+      Advanced prevention, emergency response, and community support in one app.
+    </p>
+    <button class="btn-primary" onclick="openSOS()">🚨 Emergency SOS</button>
+    <button class="btn-outline">Learn More</button>
+  </div>
+
+  <section class="pillars">
+    <h2>Seven Pillars of <span>Safety</span></h2>
+
+    <div class="pillar-grid">
+
+      <div class="pillar-card" onclick="openSafeRoutes()">
+        <div class="top-strip pink"></div>
+        <h3>Safe Route Navigation</h3>
+        <p>AI-powered routes through well-lit, crowded areas</p>
+        <a>Explore →</a>
+      </div>
+
+      <div class="pillar-card" onclick="openRiskAlerts()">
+        <div class="top-strip purple"></div>
+        <h3>Risk Zone Alerts</h3>
+        <p>Real-time warnings entering unsafe areas</p>
+        <a>Explore →</a>
+      </div>
+
+      <div class="pillar-card" onclick="openSOS()">
+        <div class="top-strip red"></div>
+        <h3>One-Tap SOS</h3>
+        <p>Instant emergency alert – works even when phone is locked</p>
+        <a>Explore →</a>
+      </div>
+
+      <div class="pillar-card" onclick="openLiveLocation()">
+        <div class="top-strip violet"></div>
+        <h3>Live Location Sharing</h3>
+        <div id="liveMap" style="height:350px; width:100%; border-radius:12px;"></div>
+        <p>Share real-time location with trusted contacts</p>
+        <a>Explore →</a>
+      </div>
+
+      <!-- FIXED -->
+      <div class="pillar-card" onclick="openCommunity()">
+        <div class="top-strip pink"></div>
+        <h3>Community Safety Network</h3>
+        <p>Collective safety through nearby users</p>
+        <a>Explore →</a>
+      </div>
+
+      <div class="pillar-card" onclick="openHeatmaps()">
+        <div class="top-strip purple"></div>
+        <h3>Safety Heatmaps</h3>
+        <p>Identify high-risk zones visually</p>
+        <a>Explore →</a>
+        </div>
+
+      <!-- FIXED -->
+    <div class="pillar-card" onclick="openAuth()">
+  <div class="top-strip violet"></div>
+  <h3>Secure Authentication</h3>
+  <p>Prevent fake alerts and protect identity</p>
+  <a>Explore →</a>
+</div>
+
+    </div>
+  </section>
+</section>
+
+<!-- ================= PREVENTIVE SAFETY ================= -->
+<section id="preventive" class="hidden">
+  <div class="sub-nav">
+    <span class="back" onclick="goBack()">← Back</span>
+  </div>
+
+  <div class="tabs">
+    <div id="safeTab" class="tab active" onclick="showSafe()">Safe Routes</div>
+    <div id="riskTab" class="tab" onclick="showRisk()">Risk Alerts</div>
+  </div>
+
+  <div id="safePanel" class="panel active">
+    <h2>Safe Route Navigation</h2>
+    <p class="subtitle">AI-powered routes through safe areas</p>
+
+    <div class="route-features">
+      <div class="route-item">🌙 Well-Lit Routes</div>
+      <div class="route-item">👥 Crowded Areas</div>
+      <div class="route-item">📍 Verified Safe Zones</div>
+      <div class="route-item">⏱ Estimated Time</div>
+    </div>
+
+    <div class="map-preview" id="routeMap"></div>
+    <button class="route-btn" onclick="getSafeRoute()">Get Safe Route</button>
+  </div>
+
+  <div id="riskPanel" class="panel">
+    <h2>Risk Zone Alerts</h2>
+    <div class="risk safe"><strong>Safe Zone</strong> Low crime</div>
+    <div class="risk caution"><strong>Caution Zone</strong> Stay alert</div>
+    <div class="risk danger"><strong>High Risk</strong> Avoid area</div>
+  </div>
+</section>
+
+<!-- ================= LIVE LOCATION ================= -->
+<section id="liveLocationPage" class="hidden">
+  <div class="sub-nav">
+    <span class="back" onclick="goBack()">← Back</span>
+  </div>
+
+  <div class="panel active">
+    <h2>Live Location Sharing</h2>
+    <p class="subtitle">Real-time location updates shared with trusted contacts</p>
+
+    <div class="route-features">
+      <div class="route-item">
+        <strong>Your Location</strong>
+        <p>Bennett University , Greater Noida</p>
+        <small>Updated just now</small>
+      </div>
+
+      <div class="route-item">
+        <strong>Sharing With</strong>
+        <p><span id="contactCount">0</span> trusted contacts</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:30px">Trusted Contacts Tracking You</h3>
+    <div id="contactList"></div>
+
+    <button class="route-btn" onclick="addContact()">➕ Add More Trusted Contacts</button>
+  </div>
+</section>
+
+<!-- ================= SOS ================= -->
+<section id="sosPage" class="hidden">
+  <div class="sub-nav">
+    <span class="back" onclick="goBack()">← Back</span>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showSOS()">SOS Alert</div>
+    <div class="tab" onclick="showVoice()">Voice Command</div>
+  </div>
+
+  <div id="sosPanel" class="panel active">
+    <h2 class="danger-title">One-Tap Emergency SOS</h2>
+    <button class="sos-btn" onclick="triggerSOS()">🚨 Press & Hold SOS</button>
+  </div>
+
+  <div id="voicePanel" class="panel">
+    <h2>Voice-Activated SOS</h2>
+    <div class="voice-box">
+      <strong>Available Voice Commands</strong>
+      <ul>
+        <li>Help / Emergency</li>
+        <li>SOS / Call for help</li>
+        <li>Activate emergency</li>
+      </ul>
+    </div>
+
+    <button class="route-btn" onclick="enableVoice()">🎙 Enable Voice Command</button>
+    <p id="voiceStatus" class="voice-status">Microphone inactive</p>
+  </div>
+</section>
+
+
+<!-- ================= AUTHENTICATION ================= -->
+<section id="authPage" class="hidden">
+
+  <div class="sub-nav">
+    <span class="back" onclick="goBack()">← Back</span>
+  </div>
+
+  <h2 class="page-title">Privacy & Trust</h2>
+
+  <div class="auth-tabs">
+  <button id="loginTab" class="auth-tab active" onclick="showLogin()">🔐 Login</button>
+  <button id="signupTab" class="auth-tab" onclick="showSignup()">📝 Sign Up</button>
+  <button id="privacyTab" class="auth-tab" onclick="showPrivacy()">🛡 Privacy Policy</button>
+</div>
+
+
+  <!-- AUTHENTICATION -->
+<div id="authPanel" class="auth-card active">
+
+  <h3>Secure Authentication</h3>
+  <p class="subtitle">
+    Advanced security measures prevent fake alerts and protect your identity with military-grade encryption
+  </p>
+
+  <div class="feature-grid">
+    <div class="feature-box">🔐 End-to-End Encryption<br><small>256-bit AES</small></div>
+    <div class="feature-box">🧬 Biometric Auth<br><small>Fingerprint & Face ID</small></div>
+    <div class="feature-box">📲 Two-Factor Auth<br><small>SMS & Email</small></div>
+    <div class="feature-box">⏱ Session Security<br><small>Auto timeout</small></div>
+  </div>
+
+ <!-- LOGIN -->
+<div id="loginPanel" class="auth-card active">
+
+  <h3>Login to SafeStep</h3>
+  <p class="subtitle">Access your safety dashboard securely</p>
+
+  <label>Email Address</label>
+  <input id="loginEmail" class="auth-input" placeholder="you@example.com">
+
+  <label>Password</label>
+  <input id="loginPassword" class="auth-input" type="password" placeholder="••••••••">
+
+  <button class="btn-primary full" onclick="loginUser()">Login</button>
+
+</div>
+<!-- ================= AUTH : SIGN UP ================= -->
+<div id="signupPanel" class="auth-card hidden">
+
+  <h3>Create Your SafeStep Account</h3>
+  <p class="subtitle">Join a trusted women safety network</p>
+
+  <label>Email Address</label>
+  <input
+    id="signupEmail"
+    class="auth-input"
+    type="email"
+    placeholder="you@example.com"
+  >
+
+  <label>Create Password</label>
+  <div class="password-box">
+    <input
+      id="signupPassword"
+      class="auth-input"
+      type="password"
+      placeholder="Minimum 6 characters"
+    >
+    <span class="eye" onclick="togglePassword('signupPassword')">👁</span>
+  </div>
+
+  <button class="btn-primary full" onclick="signupUser()">
+    Sign Up
+  </button>
+
+  <p class="switch-text">
+    Already have an account?
+    <span onclick="showLogin()">Login</span>
+  </p>
+
+</div>
+
+
+
+<!-- PRIVACY POLICY -->
+<div id="privacyPanel" class="auth-card">
+
+  <h3>Privacy & Trust Commitment</h3>
+  <p class="subtitle">
+    Your privacy is our top priority. We follow strict data protection protocols.
+  </p>
+
+  <div class="feature-grid">
+    <div class="feature-box">🙈 Anonymous Data Sharing</div>
+    <div class="feature-box">🚫 No Tracking Without Consent</div>
+    <div class="feature-box">📉 Data Minimization</div>
+    <div class="feature-box">🗑 One-Click Data Deletion</div>
+  </div>
+
+  <h4>Compliance & Certifications</h4>
+  <div class="compliance-grid">
+    <div class="compliance-box">GDPR</div>
+    <div class="compliance-box">CCPA</div>
+    <div class="compliance-box">ISO 27001</div>
+    <div class="compliance-box">SOC 2</div>
+  </div>
+
+  <button class="btn-primary full">Request My Data</button>
+</div>
+</section>
+
+<!-- ================= COMMUNITY SAFETY NETWORK ================= -->
+<section id="communityPage" class="hidden">
+  <div class="sub-nav">
+    <span class="back" onclick="goBack()">← Back</span>
+  </div>
+
+  <div class="panel active community-ui">
+
+    <h2>Community Safety Network</h2>
+    <p class="subtitle">Connect with verified nearby users and receive alerts when members need help</p>
+
+    <div class="community-cards">
+      <div class="community-card">
+        <span>Active Members Nearby</span>
+        <strong id="activeMembers">156</strong>
+      </div>
+      <div class="community-card">
+        <span>Your Network</span>
+        <strong id="yourNetwork">42</strong>
+      </div>
+    </div>
+
+    <h3>Nearby Verified Members</h3>
+
+    <div class="member-list">
+
+      <div class="member-item online">
+        <div class="avatar">S</div>
+        <div>
+          <strong>Ananya Singh</strong>
+          <small>3 blocks away</small>
+        </div>
+        <span class="dot online"></span>
+      </div>
+
+      <div class="member-item online">
+        <div class="avatar">E</div>
+        <div>
+          <strong>Rohan Verma</strong>
+          <small>5 blocks away</small>
+        </div>
+        <span class="dot online"></span>
+      </div>
+
+      <div class="member-item">
+        <div class="avatar">J</div>
+        <div>
+          <strong>Priya Kapoor</strong>
+          <small>2 blocks away</small>
+        </div>
+        <span class="dot offline"></span>
+      </div>
+
+      <div class="member-item online">
+        <div class="avatar">A</div>
+        <div>
+          <strong>Arjun Mehta</strong>
+          <small>6 block away</small>
+        </div>
+        <span class="dot online"></span>
+      </div>
+
+    </div>
+
+    <div class="info-box">
+      <h4>How It Works</h4>
+      <ul>
+        <li>When someone activates SOS, nearby verified members receive an alert</li>
+        <li>Members can acknowledge or contact authorities</li>
+        <li>All members maintain strict privacy & confidentiality</li>
+      </ul>
+    </div>
+
+    <button class="btn-primary full" onclick="inviteFriends()">Invite Friends to Network</button>
+
+  </div>
+</section>
+<!-- ================= SAFETY HEATMAPS ================= -->
+<section id="heatmapPage" class="hidden">
+  <div class="sub-nav">
+    <span class="back" onclick="goBack()">← Back</span>
+  </div>
+
+  <div class="panel active">
+
+    <h2>Safety Heatmaps</h2>
+    <p class="subtitle">
+      AI-powered maps identifying high-risk areas to improve safety and response
+    </p>
+
+    <div class="map-preview">
+      📊 Interactive Heat Map Visualization
+    </div>
+
+    <h3 style="margin:30px 0 15px">Risk Analysis by Area</h3>
+
+    <div class="risk-list">
+
+      <div class="risk-row high">
+        <div>
+          <strong>Noida Sector 18</strong>
+          <small>12 incidents this month</small>
+        </div>
+        <span class="badge high">High</span>
+      </div>
+
+      <div class="risk-row critical">
+        <div>
+          <strong>Bisrakh Police Jurisdiction and surrounding sectors</strong>
+          <small>28 incidents this month</small>
+        </div>
+        <span class="badge critical">Critical</span>
+      </div>
+
+      <div class="risk-row moderate">
+        <div>
+          <strong>Surajpur,Badalpur</strong>
+          <small>5 incidents this month</small>
+        </div>
+        <span class="badge moderate">Moderate</span>
+      </div>
+
+      <div class="risk-row low">
+        <div>
+          <strong>Sector 55,56,12,22,25 (Noida)</strong>
+          <small>2 incidents this month</small>
+        </div>
+        <span class="badge low">Low</span>
+      </div>
+
+      <div class="risk-row low">
+        <div>
+          <strong>Sector 50 and 62 Noida</strong>
+          <small>1 incident this month</small>
+        </div>
+        <span class="badge low">Low</span>
+      </div>
+
+    </div>
+
+    <div class="alert-box">
+      ⚠️ <strong>Critical Alert:</strong> Industrial Zone has rising incidents.
+      Increased patrols recommended.
+      <button class="alert-btn">View Detailed Report</button>
+    </div>
+
+    <button class="route-btn" style="margin-top:25px">
+      Share Data with Local Authorities
+    </button>
+
+  </div>
+</section>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvtOkAunsMRPUrUvZxD4X6GhD9HOZero4&libraries=visualization"></script>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<!-- IMPORTANT: script at VERY END -->
+<script src="script.js"></script>
+
+</body>
+</html>
