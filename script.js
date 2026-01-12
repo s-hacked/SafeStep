@@ -1,12 +1,12 @@
-/* ================= FIREBASE INITIALIZATION ================= */
+// 🔥 Firebase Config
 const firebaseConfig = {
-    apiKey: "AIzaSyC2VZQ-E-2m1rzoxdEXy1dPE2Kd6UbzUx8",
-    authDomain: "hackathon-da895.firebaseapp.com",
-    databaseURL: "https://hackathon-da895-default-rtdb.firebaseio.com",
-    projectId: "hackathon-da895",
-    storageBucket: "hackathon-da895.appspot.com",
-    messagingSenderId: "186850767542",
-    appId: "1:186850767542:web:8e7c286993f5d269902c17"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -264,4 +264,5 @@ function renderContacts() {
     contacts.forEach(c => {
         list.innerHTML += `<div class="route-item"><strong>${c.name}</strong><br><small>Tracking</small></div>`;
     });
+
 }
